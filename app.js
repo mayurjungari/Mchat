@@ -17,6 +17,12 @@ app.use(cors({
 const userRoute=require('./Route/userRoute');
 const chatRoute=require('./Route/chat')
 
+const CHAT=require('./models/Chat')
+const USER=require('./models/User')
+
+USER.hasMany(CHAT); 
+CHAT.belongsTo(USER);
+
 
 
 
@@ -25,6 +31,7 @@ app.post('/signup',userRoute)
 app.get('/',userRoute)
 app.post('/signin',userRoute)
 app.get('/mchat',chatRoute)
+app.post('/savechat',chatRoute)
 
 app.use((req,res)=>{
     res.send('Not Found')

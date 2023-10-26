@@ -32,6 +32,7 @@ app.get('/',userRoute)
 app.post('/signin',userRoute)
 app.get('/mchat',chatRoute)
 app.post('/savechat',chatRoute)
+app.get('/getAllChat',chatRoute)
 
 app.use((req,res)=>{
     res.send('Not Found')

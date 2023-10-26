@@ -21,3 +21,15 @@ module.exports.Savechat=async(req,res)=>{
   }
    
 }
+
+module.exports.GetChat=async(req,res)=>{
+    try{
+        const chat=await CHAT.findAll();
+        res.status(200).json({'chat':chat})
+    }
+    catch(error){
+        res.status(200).json({'error':error})
+        
+    }
+
+}

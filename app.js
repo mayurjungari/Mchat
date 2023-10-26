@@ -22,6 +22,7 @@ const userRoute=require('./Route/userRoute');
 app.get('/signup',userRoute)
 app.post('/signup',userRoute)
 app.get('/',userRoute)
+app.post('/signin',userRoute)
 
 app.use((req,res)=>{
     res.send('Not Found')

@@ -4,28 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MChat - Sign Up</title>
-    <link rel="stylesheet" href="/CSS/signup.css">
+    <title>MChat - Log In</title>
+    <link rel="stylesheet" href="/CSS/signin.css">
 </head>
 
 <body>
-    <div id="signup-form">
+    <div id="login-form">
         <h2>M-Chat</h2>
         <p>"Connecting the world, one chat at a time."</p>
-        <form onsubmit="signup(event)">
-            <input type="text" placeholder="Name" id="name" required><br>
+        <form onsubmit="signin(event)">
             <input type="email" placeholder="Email" id="email" required><br>
-            <input type="tel" placeholder="Phone Number" id="phone" required><br>
             <input type="password" placeholder="Password" id="password" required minlength="6"><br>
 
-            <input type="submit" value="Sign Up">
+            <input type="submit" value="Log In">
         </form>
         <p style="text-align: center; margin-top: 10px;">
-            Already Registered? <a href="/">Sign in here</a>
+            New user? <a href="/signup">Sign up here</a>
         </p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/JS/signup.js"></script>
+    <script src="/JS/signin.js"></script>
 </body>
 
 </html>

@@ -15,12 +15,13 @@ app.use(cors({
 
 
 const userRoute=require('./Route/userRoute');
-const { request } = require('http');
+
 
 
 
 app.get('/signup',userRoute)
 app.post('/signup',userRoute)
+app.get('/',userRoute)
 
 app.use((req,res)=>{
     res.send('Not Found')

@@ -6,9 +6,16 @@ app.use(express.static(path.join(__dirname,'Public')))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const sequelize=require('./util/database')
+const cors=require('cors')
+app.use(cors({
+    origin: 'http://localhost:3000' 
+  }));
+  
+  
 
 
 const userRoute=require('./Route/userRoute');
+const { request } = require('http');
 
 
 

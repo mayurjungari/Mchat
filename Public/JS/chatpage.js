@@ -25,31 +25,65 @@ catch(error)
 function showChat(data) {
     data.forEach(chat => {
         const messageContainer = document.getElementById('message-container');
+       
         const chatElement = document.createElement('div');
         const userNameElement = document.createElement('p');
         userNameElement.innerHTML = `<strong>${chat.USERNAME}:-----  </strong> ${chat.MESSAGE}`;
-        // const messageElement = document.createElement('p');
-        // messageElement.textContent = chat.MESSAGE;
+       
         chatElement.appendChild(userNameElement);
-        // chatElement.appendChild(messageElement);
+        
         messageContainer.appendChild(chatElement);
     });
 }
 
+async function getAllMessage(lastChatId) {
+    const token = localStorage.getItem('token');
 
+    try {
+        const response = await axios.get(`/getAllChat?lastChatId=${lastChatId}`, {
+            headers: {
+                'Authorization': token
+            }
+        });
+        
 
+        const chatData = response.data.chat;
 
-async function getAllMessage(){
-    const token=localStorage.getItem('token')
+        // Storing the last 10 chat messages in local storage
+        const storedChats = JSON.parse(localStorage.getItem('chats')) || [];
+        storedChats.push(...chatData);
+        const lastTenChats = storedChats.slice(Math.max(storedChats.length - 10, 0));
+        localStorage.setItem('chats', JSON.stringify(lastTenChats));
 
-    const response=await axios.get('/getAllChat', {
-        headers: {
-            'Authorization': token
-        }
-    })
-  showChat(response.data.chat)
-
-
-
+        showChat(lastTenChats);
+    } catch (error) {
+        console.error("Error occurred while fetching chat:", error);
+    }
 }
-getAllMessage()
+
+
+const storedChats = JSON.parse(localStorage.getItem('chats')) || [];
+const LastChatId = storedChats.length > 0 ? storedChats[storedChats.length - 1].ID : null;
+console.log(LastChatId)
+
+getAllMessage(LastChatId);
+
+
+
+// async function getAllMessage(){
+//     const token=localStorage.getItem('token')
+
+//     const response=await axios.get('/getAllChat', {
+//         headers: {
+//             'Authorization': token
+//         }
+//     })
+//     console.log(response.data)
+//   showChat(response.data.chat)
+
+// }
+// getAllMessage()
+
+// setInterval(async () => {
+//     await getAllMessage();
+// }, 1000);

@@ -7,7 +7,7 @@ module.exports.authenticate=(req,res,next)=>{
         const token =req.header('Authorization');
         
         const tokenobject=jwt.verify(token,process.env.TOKEN_SECRET)
-        console.log(tokenobject)
+        
         
         USER.findByPk(tokenobject.Id).then(user=>{
            

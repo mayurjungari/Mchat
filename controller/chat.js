@@ -1,5 +1,6 @@
 const path=require('path')
 const CHAT=require('../models/Chat')
+const { Op } = require('sequelize');
 module.exports.ChatPage=(req,res)=>{
     res.sendFile(path.join(__dirname,'../','Views','chatpage.html'))
 }
@@ -22,14 +23,30 @@ module.exports.Savechat=async(req,res)=>{
    
 }
 
-module.exports.GetChat=async(req,res)=>{
-    try{
-        const chat=await CHAT.findAll();
-        res.status(200).json({'chat':chat})
-    }
-    catch(error){
-        res.status(200).json({'error':error})
-        
-    }
 
-}
+let lastChatId = null;
+module.exports.GetChat = async (req, res) => {
+  try {
+      const lastId = req.query.lastChatId;
+     
+      let newChats = [];
+
+      if (lastId && lastId !== lastChatId) {
+          newChats = await CHAT.findAll({
+              where: {
+                  ID: {
+                      [Op.gt]: lastId
+                  }
+              }
+          });
+           
+          if (newChats.length > 0) {
+              lastChatId = newChats[newChats.length - 1].ID; 
+          }
+      }
+
+      res.status(200).json({ 'chat': newChats });
+  } catch (error) {
+      res.status(500).json({ 'error': 'Internal Server Error' });
+  }
+};

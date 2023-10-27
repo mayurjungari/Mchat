@@ -10,7 +10,7 @@ module.exports.postSignIn=async (req,res)=>{
    const {email,password}=req.body;
    try {
     const user=await USER.findOne({where:{Email:email}})
-    console.log(user)
+    
     if(!user)
     {
         res.status(404).json({message:"user not found"})

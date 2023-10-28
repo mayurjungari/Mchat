@@ -16,12 +16,31 @@ app.use(cors({
 
 const userRoute=require('./Route/userRoute');
 const chatRoute=require('./Route/chat')
+const groupRoute=require('./Route/group')
 
 const CHAT=require('./models/Chat')
 const USER=require('./models/User')
+const GROUP=require('./models/Group')
+const USERGROUP=require('./models/UserGroup')
+
 
 USER.hasMany(CHAT); 
 CHAT.belongsTo(USER);
+CHAT.belongsTo(GROUP);
+
+USER.hasMany(USERGROUP)
+
+GROUP.hasMany(USERGROUP)
+GROUP.hasMany(CHAT)
+
+USERGROUP.belongsTo(USER)
+USERGROUP.belongsTo(GROUP)
+
+
+
+
+
+
 
 
 
@@ -33,6 +52,7 @@ app.post('/signin',userRoute)
 app.get('/mchat',chatRoute)
 app.post('/savechat',chatRoute)
 app.get('/getAllChat',chatRoute)
+app.post('/group/createGroup',groupRoute)
 
 app.use((req,res)=>{
     res.send('Not Found')

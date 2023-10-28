@@ -24,29 +24,36 @@ module.exports.Savechat=async(req,res)=>{
 }
 
 
-let lastChatId = null;
+let lastChatId = null; 
+
 module.exports.GetChat = async (req, res) => {
   try {
-      const lastId = req.query.lastChatId;
-     
-      let newChats = [];
+    const { lastChatId: lastId } = req.query; 
+    console.log('lastChatId....................................................')
+    let newChats = [];
 
-      if (lastId && lastId !== lastChatId) {
-          newChats = await CHAT.findAll({
-              where: {
-                  ID: {
-                      [Op.gt]: lastId
-                  }
-              }
-          });
-           
-          if (newChats.length > 0) {
-              lastChatId = newChats[newChats.length - 1].ID; 
+    
+    if (lastId && lastId !== lastChatId) {
+    
+      newChats = await CHAT.findAll({
+        where: {
+          ID: {
+            [Op.gt]: lastId
           }
-      }
+        }
+      });
 
-      res.status(200).json({ 'chat': newChats });
+     console.log(newChats)
+      if (newChats.length > 0) {
+        lastChatId = newChats[newChats.length - 1].ID;
+      }
+    }
+
+   
+    res.status(200).json({ chat: newChats });
   } catch (error) {
-      res.status(500).json({ 'error': 'Internal Server Error' });
+    
+    console.error('Error occurred while fetching chat:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };

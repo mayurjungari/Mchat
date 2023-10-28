@@ -2,25 +2,57 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M-Chat App</title>
+    <!-- Add your meta tags, title, and CSS links here -->
     <link rel="stylesheet" href="/CSS/chatpage.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   
 </head>
+
 <body>
-    <h1 style="text-align: center;">M-Chat App</h1>
-    <p style="text-align: center; font-style: italic;">"Communication works for those who work at it."</p>
-    <div id="message-container">
-       
+    <div class="container">
+        <div class="left-section">
+            <h2>My Groups</h2>
+            <ul id="group-list">
+                <!-- List of all groups where the user is present -->
+                <li>Group 1</li>
+                <li>Group 2</li>
+               
+            </ul>
+        </div>
+
+        <div class="mid-section">
+            <h1>M-Chat</h1>
+            <br><br>
+            <p>"Communication works for those who work at it."</p>
+            <hr><hr>
+         
+            
+
+            <div id="message-container">
+               
+            </div>
+        </div>
+
+        <div class="right-section">
+            <ul id="right-menu">
+                <li><a href="#" id="groupMembers" onclick="displayGroupMembers()"><i class="fas fa-users"></i> Group Members</a></li>
+                <li><a href="#" id="createGroup" onclick="createGroup()"><i class="fas fa-comments"></i> Create Group</a></li>
+                <li><a href="#" id="addToGroup" onclick="addToGroup()"><i class="fas fa-plus"></i> Add to group</a></li>
+                <li><a href="#" id="deleteFromGroup" onclick="deleteFromGroup()"><i class="fas fa-ban"></i> Delete From Group</a></li>
+                <li><a href="#" id="logout" onclick="logout()"><i class="fas fa-lock"></i> LogOut</a></li>
+            </ul>
+        </div>
     </div>
+
     <div id="input-container">
-        <input type="text" id="message-input" placeholder="Type your message here..." style="width: 10cm;" />
+        <input type="text" id="message-input" placeholder="Type your message here..." />
         <button id="send-button">Send</button>
     </div>
 
-</body>
+    <!-- Your script tags here -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<script src="/JS/chatpage.js"></script>
+   
+    <script src="/JS/chatpage.js"></script>
+</body>
 
 </html>

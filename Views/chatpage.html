@@ -13,8 +13,7 @@
             <h2>My Groups</h2>
             <ul id="group-list">
                 <!-- List of all groups where the user is present -->
-                <li>Group 1</li>
-                <li>Group 2</li>
+                
                
             </ul>
         </div>
@@ -25,9 +24,10 @@
             <p>"Communication works for those who work at it."</p>
             <hr><hr>
          
-            
+            <div id="group-name-header"></div>
 
             <div id="message-container">
+                
                
             </div>
         </div>
@@ -44,6 +44,7 @@
     </div>
 
     <div id="input-container">
+        <input type="hidden" id="active-group-id" value="" />
         <input type="text" id="message-input" placeholder="Type your message here..." />
         <button id="send-button">Send</button>
     </div>

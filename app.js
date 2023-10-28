@@ -53,9 +53,24 @@ app.get('/mchat',chatRoute)
 app.post('/savechat',chatRoute)
 app.get('/getAllChat',chatRoute)
 app.post('/group/createGroup',groupRoute)
+app.get('/group/getGroups',groupRoute)
+
+app.get('/chat/group/:groupId', async (req, res) => {
+  const { groupId } = req.params;
+
+  try {
+    // Assuming 'Chat' is the model and 'findAll' is a method to retrieve chat data
+    const chatData = await CHAT.findAll({ where: { groupID:groupId } });
+
+    res.status(200).json({ chat: chatData });
+  } catch (error) {
+    console.error('Error occurred while fetching chat:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.use((req,res)=>{
-    res.send('Not Found')
+    res.send('Not Foundd')
 })
 sequelize
   .sync()

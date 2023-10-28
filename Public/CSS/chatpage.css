@@ -97,4 +97,27 @@ h1, h2, p {
     margin-bottom: 20px;
     text-align: left; 
     padding: 2cm;
+    padding-top: 1cm;
 }
+.group-item {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.group-name {
+    font-weight: bold;
+}
+
+.admin-info {
+    color: #888;
+    font-size: 0.8em;
+}
+#group-name-header {
+    font-size: x-large;
+    font-weight: bold;
+    background-color: lightgray;
+    padding: 10px;
+  }

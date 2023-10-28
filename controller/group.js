@@ -39,3 +39,22 @@ module.exports.CreateGroup = async (req, res) => {
     }
   };
   
+
+
+ module.exports.GetGroups = async (req, res, next) => {
+    try {
+      const groups = await GROUP.findAll({
+        attributes: ["GroupName", "Admin",'ID'],
+        include: [
+          {
+            model: USERGROUP,
+            where: { userID: req.user.ID },
+          },
+        ],
+      });
+    
+      res.status(200).json({ groups: groups });
+    } catch (error) {
+      console.log(error);
+    }
+  };  

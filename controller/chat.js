@@ -7,16 +7,20 @@ module.exports.ChatPage=(req,res)=>{
 
 module.exports.Savechat=async(req,res)=>{
   const message=req.body.message;
+  const groupId=req.body.groupId;
+
   try {
     await CHAT.create({
         USERNAME:req.user.USERNAME,
        MESSAGE:message,
-       userID:req.user.ID 
+       userID:req.user.ID,
+        groupID:groupId,
 
     })
     res.status(200).json({message:" Chat save to database"})
     
   } catch (error) {
+    console.log(error)
     res.json({"error":error})
     
   }

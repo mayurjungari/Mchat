@@ -1,6 +1,14 @@
 const express=require('express')
 const app=express();
+
+
 const path=require('path')
+
+
+
+
+
+
 const bodyParser = require('body-parser');
 app.use(express.static(path.join(__dirname,'Public')))
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,6 +30,7 @@ const CHAT=require('./models/Chat')
 const USER=require('./models/User')
 const GROUP=require('./models/Group')
 const USERGROUP=require('./models/UserGroup')
+const ARCHIVE=require('./models/ArchiveChat')
 
 
 USER.hasMany(CHAT); 
@@ -51,16 +60,27 @@ app.get('/',userRoute)
 app.post('/signin',userRoute)
 app.get('/mchat',chatRoute)
 app.post('/savechat',chatRoute)
-app.get('/getAllChat',chatRoute)
+// app.get('/getAllChat',chatRoute)
 app.post('/group/createGroup',groupRoute)
 app.get('/group/getGroups',groupRoute)
 
+
+const { Op } = require('sequelize');
+
+
+
 app.get('/chat/group/:groupId', async (req, res) => {
   const { groupId } = req.params;
+  let lastFetchedChatId = req.query.lastFetchedChatId;
+
 
   try {
-    // Assuming 'Chat' is the model and 'findAll' is a method to retrieve chat data
-    const chatData = await CHAT.findAll({ where: { groupID:groupId } });
+    let chatData = [];
+
+    if (lastFetchedChatId) {
+      chatData = await CHAT.findAll({ where: { groupID: groupId, id: { [Op.gt]: lastFetchedChatId } } });
+    }
+   
 
     res.status(200).json({ chat: chatData });
   } catch (error) {
@@ -69,8 +89,30 @@ app.get('/chat/group/:groupId', async (req, res) => {
   }
 });
 
+
+
+
+
+app.post('/group/:groupId/addMember',groupRoute)
+app.post('/group/:groupId/deleteMember',groupRoute)
+app.get('/group/:groupId/members',groupRoute)
+app.post('/group/exit',groupRoute)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.use((req,res)=>{
-    res.send('Not Foundd')
+    res.status(404).send('Not Foundd')
 })
 sequelize
   .sync()
@@ -81,6 +123,15 @@ sequelize
   .catch((error) => {
     console.error('Unable to synchronize the database:', error);
   });
+
+
+
+  
+
+
+
+
+
 
 app.listen(3000,()=>{
     console.log('Server in running on port 3000')

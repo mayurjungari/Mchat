@@ -36,21 +36,27 @@
             <ul id="right-menu">
                 <li><a href="#" id="groupMembers" onclick="displayGroupMembers()"><i class="fas fa-users"></i> Group Members</a></li>
                 <li><a href="#" id="createGroup" onclick="createGroup()"><i class="fas fa-comments"></i> Create Group</a></li>
+                <li><a href="#" id="createGroup" onclick="exitGroup()"><i class="fas fa-comments"></i> Exit Group</a></li>
                 <li><a href="#" id="addToGroup" onclick="addToGroup()"><i class="fas fa-plus"></i> Add to group</a></li>
                 <li><a href="#" id="deleteFromGroup" onclick="deleteFromGroup()"><i class="fas fa-ban"></i> Delete From Group</a></li>
                 <li><a href="#" id="logout" onclick="logout()"><i class="fas fa-lock"></i> LogOut</a></li>
             </ul>
+            <h2>Group Member</h2>
+            <ul id="user-list"></ul>
         </div>
     </div>
+    
 
     <div id="input-container">
         <input type="hidden" id="active-group-id" value="" />
+       
         <input type="text" id="message-input" placeholder="Type your message here..." />
         <button id="send-button">Send</button>
     </div>
 
     <!-- Your script tags here -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
 
    
     <script src="/JS/chatpage.js"></script>
